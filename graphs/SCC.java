@@ -9,7 +9,7 @@ public class SCC {
 	static ArrayList<Integer> adjList[];
 	static boolean visited[];
 	static int [] dfs_num, dfs_low;
-	static int dfs_counter, num_SCC;
+	static int dfs_counter, num_SCC, N;
 	static Stack<Integer> s;
 	
 	static void tarjanSCC(int u)
@@ -20,9 +20,10 @@ public class SCC {
 		
 		for(int v : adjList[u])
 		{
-			if(!visited[v])
+			if(dfs_num[v] == -1){
 				tarjanSCC(v);
-			else
+			}
+			if(visited[v])
 				dfs_low[u] = Math.min(dfs_low[u], dfs_low[v]);
 			
 		}
@@ -39,6 +40,14 @@ public class SCC {
 					break;
 					
 			}
+		}
+	}
+	
+	public static void main(String[] args) {
+		for(int i=0; i<N; i++)
+		{
+			if(dfs_num[i] == -1)
+				tarjanSCC(i);
 		}
 	}
 	
