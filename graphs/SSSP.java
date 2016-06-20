@@ -14,8 +14,8 @@ public class SSSP {
 	{
 		PriorityQueue<Pair> q = new PriorityQueue<Pair>();
 		int dist[] = new int[N];
-		dist[s] = 0;
 		Arrays.fill(dist, (int)1e9);
+		dist[s] = 0;
 		
 		q.add(new Pair(s,0));
 		while(!q.isEmpty())
