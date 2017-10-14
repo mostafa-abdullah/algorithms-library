@@ -28,8 +28,12 @@ public class LCA_log {
 	// O(NlogN)
 	static void process()
 	{
+		parent = new int[N];
+		level = new int[N];
+		Arrays.fill(parent, -1);
 		dfs(0,0);
-		P = new int[N][(int)Math.ceil(Math.log(N))];
+		P = new int[N][(int)Math.ceil(Math.log(N)/Math.log(2))];
+		
 		for(int i=0; i<N; i++)
 			Arrays.fill(P[i], -1);
 		
@@ -37,8 +41,12 @@ public class LCA_log {
 			P[i][0] = parent[i];
 		
 		for(int j = 1; 1 << j < N; j++)
-			for(int i = 0; i < N; i++)
-				P[i][j] = P[P[i][j-1]][j-1];
+			for(int i = 0; i < N; i++){
+				if(P[i][j-1] == -1)
+					P[i][j] = i;
+				else
+					P[i][j] = P[P[i][j-1]][j-1];
+			}
 		
 	}
 	
@@ -53,7 +61,7 @@ public class LCA_log {
 			v = tmp;
 		}
 		
-		int log = (int) Math.log(level[u]);
+		int log = (int) (Math.log(level[u])/Math.log(2));
 		
 		for(int i = log; i>=0; i--)
 			if(level[u] - (1 << i) >= level[v])
